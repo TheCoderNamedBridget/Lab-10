@@ -1,0 +1,218 @@
+
+
+
+
+/**
+ * 
+ * @author bridg
+ *
+ */
+public class BST {
+	
+	public static class Node {
+		
+		public Word data;
+		
+		public Node left;
+		
+		public Node right;
+		
+		public Node( Word d ) {
+			
+			data = d;
+			
+			left = null;
+			
+			right = null;
+			
+		}
+		
+		public String toString() {
+			
+			return "\n" + data;
+			
+		}
+		
+	}
+	
+	public Node root;
+	
+	public BST() {
+		
+		root = null;
+		
+	}
+	
+	public boolean isEmpty() {
+		
+		return root == null;
+		
+	}
+	
+	
+	public void add( Word d ) {
+		
+		System.out.println( " word = " + d.wordValue + " freq "+ d.wordFrequency );
+		
+		d.incFrequency();
+		
+		System.out.println( " word = " + d.wordValue + " freq "+ d.wordFrequency );
+		
+		
+		root = add( d, root );
+		
+	}
+	
+	public Node add( Word d, Node n ) {
+		
+		if( n == null ){
+			
+			return new Node( d );
+			
+		} 
+		else {
+			
+			if ( d.compareTo( n.data ) < 0 ) {
+				
+				//System.out.println("left " + d.wordValue +  n.data.wordValue);
+				
+				n.left = add(d, n.left);
+				
+			}
+			else if ( d.compareTo( n.data ) > 0 ) {
+				
+				n.right = add( d, n.right );
+				
+			} else if ( d.compareTo( n.data ) == 0 ) {
+				
+				n.data.incFrequency();
+				
+			}
+			
+			return n;
+			
+		}
+		
+	}
+	
+	public Word getWord ( Word d ) {
+		
+		if ( root == null ) {
+			
+			System.out.println( "root = null" );
+			
+			return null;
+			
+		} else {
+			
+			return getWord ( d, root );
+			
+		}
+		
+	}
+	
+	private Word getWord ( Word d, Node n ) {
+		
+		System.out.println( "1d " + d.wordValue + " 1n " + n.data.wordValue);
+		
+		if ( d.wordValue.equals( n.data.wordValue ) ) {
+			
+			System.out.println( "d == n.data" );
+			
+			return n.data;
+			
+		}
+		
+		if ( d.compareTo( n.data ) < 0 ) {
+			
+			
+			
+			if (n.left == null) {
+				
+				System.out.println( "d " + d.wordValue + " n.left " + n.left);
+				
+				return null;
+				
+			} else {
+				
+				return getWord( d, n.left );
+				
+			}
+			
+		} else {
+			
+			if ( n.right == null ) {
+				
+				System.out.println( "d " + d.wordValue + " n.right " + n.right);
+				
+				return null;
+				
+			} else {
+				
+				return getWord ( d, n.right );
+				
+			}
+			
+		}
+	}
+	
+	public void printBST () {
+		
+		if( isEmpty() ) {
+			
+			System.out.println("Tree is empty.");
+			
+		} else {
+			
+			printBST( root );
+			
+		}
+		
+	}
+	
+	private void printBST( Node n ) {
+		
+		//go down left tree
+		
+		if (n.left != null) {
+			
+			printBST( n.left );
+			
+		}
+		
+		System.out.println( n.data );
+		
+		if ( n.right != null ) {
+			
+			printBST( n.right );
+			
+		}
+		
+	}
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
